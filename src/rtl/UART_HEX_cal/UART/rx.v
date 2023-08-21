@@ -46,13 +46,26 @@ always @(posedge clk or negedge n_rst) begin
     if(!n_rst) begin
         cnt <= 1'b0;
     end
-    else (rx_start = 1'b1) begin
+    else (rx_start == 1'b1) begin
         cnt <= (cnt == 4'hf)? 4'b0 : cnt + 4'b1;
     end
     else begin
         cnt <= cnt;
     end
 end
+
+always @ (posedge clk or negedge n_rst) begin
+    if(!n_rst) begin
+        cnt2 <= 4'h0;
+    end
+    else if  (c_state == DATA) begin
+        cnt2 <= (cnt2 == 4'h8) ? 4'h0 : (r_gen == 1'b1) ? cnt2 + 4'h1 : cnt2;
+    end
+    else begin
+        cnt2 <= cnt2;
+    end
+end
+
 
 always @ (posedge clk or negedge n_rst) begin
     if(!n_rst) begin
