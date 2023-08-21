@@ -69,8 +69,7 @@ end
 
 
 assign dout_val = (c_state == STOP) ? 1'b1 : 1'b0;
-
-
+assign t_gen = (cnt ==4'hf)? 1'b1 : 1'b0;
 
 
 endmodule 
